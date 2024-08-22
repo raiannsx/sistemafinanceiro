@@ -1,0 +1,40 @@
+public class PaybackCalculator {
+
+    public static void main(String[] args) {
+        // Valores fornecidos
+        double investimentoInicial = 60000.00;
+        double[] fluxosDeCaixa = {
+            10000.00, // Saldo 1
+            5000.00,  // Saldo 2
+            5000.00,  // Saldo 3
+            5000.00,  // Saldo 4
+            5000.00,  // Saldo 5
+            6000.00,  // Saldo 6
+            8000.00,  // Saldo 7
+            15000.00, // Saldo 8
+            20000.00, // Saldo 9
+            10000.00  // Saldo 10
+        };
+
+        // Calcula o Payback
+        double payback = calcularPayback(investimentoInicial, fluxosDeCaixa);
+
+        // Exibe o resultado
+        System.out.printf("O Payback é: %.2f anos\n", payback);
+    }
+
+    // Método para calcular o Payback
+    public static double calcularPayback(double investimentoInicial, double[] fluxosDeCaixa) {
+        double acumulado = 0.0;
+        for (int i = 0; i < fluxosDeCaixa.length; i++) {
+            acumulado += fluxosDeCaixa[i];
+            if (acumulado >= investimentoInicial) {
+                // Calcula a fração do ano
+                double saldoFaltante = investimentoInicial - (acumulado - fluxosDeCaixa[i]);
+                double fraçãoAno = saldoFaltante / fluxosDeCaixa[i];
+                return i + fraçãoAno + 1; // Adiciona 1 para contar o ano corrente
+            }
+        }
+        return -1; // Retorna -1 se o investimento não for recuperado
+    }
+}
