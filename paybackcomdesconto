@@ -1,0 +1,44 @@
+public class PaybackCalculator {
+
+    public static void main(String[] args) {
+        // Valores fornecidos
+        double investimentoInicial = 60000.00;
+        double taxaDeDesconto = 0.05; // Exemplo de 5% de taxa de desconto
+        double[] fluxosDeCaixa = {
+            10000.00, // Saldo 1
+            5000.00,  // Saldo 2
+            5000.00,  // Saldo 3
+            5000.00,  // Saldo 4
+            5000.00,  // Saldo 5
+            6000.00,  // Saldo 6
+            8000.00,  // Saldo 7
+            15000.00, // Saldo 8
+            20000.00, // Saldo 9
+            10000.00  // Saldo 10
+        };
+
+        // Calcula o Payback descontado
+        double paybackDescontado = calcularPaybackDescontado(investimentoInicial, taxaDeDesconto, fluxosDeCaixa);
+
+        // Exibe o resultado
+        System.out.printf("O Payback descontado é: %.2f anos\n", paybackDescontado);
+    }
+
+    // Método para calcular o Payback descontado
+    public static double calcularPaybackDescontado(double investimentoInicial, double taxaDeDesconto, double[] fluxosDeCaixa) {
+        double acumulado = 0.0;
+        double valorPresente;
+        for (int i = 0; i < fluxosDeCaixa.length; i++) {
+            // Calcula o valor presente do fluxo de caixa
+            valorPresente = fluxosDeCaixa[i] / Math.pow(1 + taxaDeDesconto, i + 1);
+            acumulado += valorPresente;
+            if (acumulado >= investimentoInicial) {
+                // Calcula a fração do ano
+                double saldoFaltante = investimentoInicial - (acumulado - valorPresente);
+                double fraçãoAno = saldoFaltante / valorPresente;
+                return i + fraçãoAno + 1; // Adiciona 1 para contar o período corrente
+            }
+        }
+        return -1; // Retorna -1 se o investimento não for recuperado
+    }
+}
