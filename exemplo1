@@ -1,20 +1,32 @@
 public class LEQCalculator {
 
     public static void main(String[] args) {
-        // Valores fornecidos
+        // Definindo os valores fornecidos
+        // Custo de Armazenagem por unidade por ano
         double custoArmazenagem = 4.00;
+        // Custo de Compra por unidade
         double custoCompra = 160.00;
+        // Custo de Produção Anual
         double custoProducaoAnual = 0.35;
 
-        // Calcula o LEQ
+        // Calcula o Lote Econômico de Compra (LEQ) chamando o método calcularLEQ
         double leq = calcularLEQ(custoArmazenagem, custoCompra, custoProducaoAnual);
 
-        // Exibe o resultado
+        // Exibe o resultado formatado com duas casas decimais
         System.out.printf("O Lote Econômico de Compra (LEQ) é: %.2f unidades\n", leq);
     }
 
-    // Método para calcular o Lote Econômico de Compra (LEQ)
+    /**
+     * Método para calcular o Lote Econômico de Compra (LEQ).
+     *
+     * @param ca  Custo de Armazenagem por unidade por ano
+     * @param cc  Custo de Compra por unidade
+     * @param cpa Custo de Produção Anual
+     * @return O Lote Econômico de Compra (LEQ)
+     */
     public static double calcularLEQ(double ca, double cc, double cpa) {
+        // Fórmula para calcular o Lote Econômico de Compra (LEQ)
+        // LEQ = sqrt((2 * Custo de Armazenagem * Custo de Compra) / Custo de Produção Anual)
         return Math.sqrt((2 * ca * cc) / cpa);
     }
 }
